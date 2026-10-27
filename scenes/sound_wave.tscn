@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/sound_wave.gd" id="1"]
+[ext_resource type="Texture2D" path="res://art/fx/wave.png" id="2"]
+
+[sub_resource type="CanvasItemMaterial" id="add"]
+blend_mode = 1
+
+[node name="SoundWave" type="Sprite2D"]
+z_index = 9
+material = SubResource("add")
+texture = ExtResource("2")
+offset = Vector2(9, 0)
+hframes = 3
+script = ExtResource("1")

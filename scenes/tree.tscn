@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Texture2D" path="res://art/props/tree.png" id="1"]
+[ext_resource type="Script" path="res://scripts/canopy.gd" id="2"]
+
+[sub_resource type="RectangleShape2D" id="base"]
+size = Vector2(10, 5)
+
+[sub_resource type="RectangleShape2D" id="crown"]
+size = Vector2(26, 22)
+
+[node name="Tree" type="StaticBody2D"]
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1")
+centered = false
+offset = Vector2(-16, -30)
+
+[node name="Base" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2)
+shape = SubResource("base")
+
+[node name="Canopy" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
+monitorable = false
+script = ExtResource("2")
+
+[node name="Crown" type="CollisionShape2D" parent="Canopy"]
+position = Vector2(0, -17)
+shape = SubResource("crown")

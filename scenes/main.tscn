@@ -1,14 +1,44 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=5 format=3]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/player.tscn" id="2"]
+[ext_resource type="Shader" path="res://shaders/grade.gdshader" id="3"]
+
+[sub_resource type="ShaderMaterial" id="grade"]
+shader = ExtResource("3")
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1")
 
 [node name="Ground" type="TileMapLayer" parent="."]
 
+[node name="Gravel" type="TileMapLayer" parent="."]
+
+[node name="Path" type="TileMapLayer" parent="."]
+
+[node name="Water" type="TileMapLayer" parent="."]
+
+[node name="Bridge" type="TileMapLayer" parent="."]
+
+[node name="CliffWall" type="TileMapLayer" parent="."]
+
+[node name="CliffTop" type="TileMapLayer" parent="."]
+
+[node name="Stairs" type="TileMapLayer" parent="."]
+
 [node name="Objects" type="Node2D" parent="."]
 y_sort_enabled = true
 
 [node name="Player" parent="Objects" instance=ExtResource("2")]
+
+[node name="Grade" type="CanvasLayer" parent="."]
+layer = 50
+
+[node name="Screen" type="ColorRect" parent="Grade"]
+material = SubResource("grade")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

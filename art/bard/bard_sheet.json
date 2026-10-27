@@ -1,182 +1,290 @@
 { "frames": [
    {
     "filename": "bard_animations 0.aseprite",
-    "frame": { "x": 0, "y": 0, "w": 48, "h": 64 },
+    "frame": { "x": 0, "y": 0, "w": 24, "h": 28 },
     "rotated": false,
     "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 64 },
-    "sourceSize": { "w": 48, "h": 64 },
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 28 },
+    "sourceSize": { "w": 24, "h": 28 },
     "duration": 600
    },
    {
     "filename": "bard_animations 1.aseprite",
-    "frame": { "x": 48, "y": 0, "w": 48, "h": 64 },
+    "frame": { "x": 24, "y": 0, "w": 24, "h": 28 },
     "rotated": false,
     "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 64 },
-    "sourceSize": { "w": 48, "h": 64 },
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 28 },
+    "sourceSize": { "w": 24, "h": 28 },
     "duration": 600
    },
    {
     "filename": "bard_animations 2.aseprite",
-    "frame": { "x": 96, "y": 0, "w": 48, "h": 64 },
+    "frame": { "x": 48, "y": 0, "w": 24, "h": 28 },
     "rotated": false,
     "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 64 },
-    "sourceSize": { "w": 48, "h": 64 },
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 28 },
+    "sourceSize": { "w": 24, "h": 28 },
     "duration": 500
    },
    {
     "filename": "bard_animations 3.aseprite",
-    "frame": { "x": 144, "y": 0, "w": 48, "h": 64 },
+    "frame": { "x": 72, "y": 0, "w": 24, "h": 28 },
     "rotated": false,
     "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 64 },
-    "sourceSize": { "w": 48, "h": 64 },
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 28 },
+    "sourceSize": { "w": 24, "h": 28 },
     "duration": 120
    },
    {
     "filename": "bard_animations 4.aseprite",
-    "frame": { "x": 0, "y": 64, "w": 48, "h": 64 },
+    "frame": { "x": 0, "y": 28, "w": 24, "h": 28 },
     "rotated": false,
     "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 64 },
-    "sourceSize": { "w": 48, "h": 64 },
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 28 },
+    "sourceSize": { "w": 24, "h": 28 },
     "duration": 150
    },
    {
     "filename": "bard_animations 5.aseprite",
-    "frame": { "x": 48, "y": 64, "w": 48, "h": 64 },
+    "frame": { "x": 24, "y": 28, "w": 24, "h": 28 },
     "rotated": false,
     "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 64 },
-    "sourceSize": { "w": 48, "h": 64 },
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 28 },
+    "sourceSize": { "w": 24, "h": 28 },
     "duration": 150
    },
    {
     "filename": "bard_animations 6.aseprite",
-    "frame": { "x": 96, "y": 64, "w": 48, "h": 64 },
+    "frame": { "x": 48, "y": 28, "w": 24, "h": 28 },
     "rotated": false,
     "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 64 },
-    "sourceSize": { "w": 48, "h": 64 },
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 28 },
+    "sourceSize": { "w": 24, "h": 28 },
     "duration": 150
    },
    {
     "filename": "bard_animations 7.aseprite",
-    "frame": { "x": 144, "y": 64, "w": 48, "h": 64 },
+    "frame": { "x": 72, "y": 28, "w": 24, "h": 28 },
     "rotated": false,
     "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 64 },
-    "sourceSize": { "w": 48, "h": 64 },
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 28 },
+    "sourceSize": { "w": 24, "h": 28 },
     "duration": 150
    },
    {
     "filename": "bard_animations 8.aseprite",
-    "frame": { "x": 0, "y": 128, "w": 48, "h": 64 },
+    "frame": { "x": 0, "y": 56, "w": 24, "h": 28 },
     "rotated": false,
     "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 64 },
-    "sourceSize": { "w": 48, "h": 64 },
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 28 },
+    "sourceSize": { "w": 24, "h": 28 },
     "duration": 150
    },
    {
     "filename": "bard_animations 9.aseprite",
-    "frame": { "x": 48, "y": 128, "w": 48, "h": 64 },
+    "frame": { "x": 24, "y": 56, "w": 24, "h": 28 },
     "rotated": false,
     "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 64 },
-    "sourceSize": { "w": 48, "h": 64 },
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 28 },
+    "sourceSize": { "w": 24, "h": 28 },
     "duration": 150
    },
    {
     "filename": "bard_animations 10.aseprite",
-    "frame": { "x": 96, "y": 128, "w": 48, "h": 64 },
+    "frame": { "x": 48, "y": 56, "w": 24, "h": 28 },
     "rotated": false,
     "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 64 },
-    "sourceSize": { "w": 48, "h": 64 },
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 28 },
+    "sourceSize": { "w": 24, "h": 28 },
     "duration": 150
    },
    {
     "filename": "bard_animations 11.aseprite",
-    "frame": { "x": 144, "y": 128, "w": 48, "h": 64 },
+    "frame": { "x": 72, "y": 56, "w": 24, "h": 28 },
     "rotated": false,
     "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 64 },
-    "sourceSize": { "w": 48, "h": 64 },
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 28 },
+    "sourceSize": { "w": 24, "h": 28 },
     "duration": 150
    },
    {
     "filename": "bard_animations 12.aseprite",
-    "frame": { "x": 0, "y": 192, "w": 48, "h": 64 },
+    "frame": { "x": 0, "y": 84, "w": 24, "h": 28 },
     "rotated": false,
     "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 64 },
-    "sourceSize": { "w": 48, "h": 64 },
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 28 },
+    "sourceSize": { "w": 24, "h": 28 },
     "duration": 150
    },
    {
     "filename": "bard_animations 13.aseprite",
-    "frame": { "x": 48, "y": 192, "w": 48, "h": 64 },
+    "frame": { "x": 24, "y": 84, "w": 24, "h": 28 },
     "rotated": false,
     "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 64 },
-    "sourceSize": { "w": 48, "h": 64 },
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 28 },
+    "sourceSize": { "w": 24, "h": 28 },
     "duration": 150
    },
    {
     "filename": "bard_animations 14.aseprite",
-    "frame": { "x": 96, "y": 192, "w": 48, "h": 64 },
+    "frame": { "x": 48, "y": 84, "w": 24, "h": 28 },
     "rotated": false,
     "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 64 },
-    "sourceSize": { "w": 48, "h": 64 },
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 28 },
+    "sourceSize": { "w": 24, "h": 28 },
     "duration": 150
    },
    {
     "filename": "bard_animations 15.aseprite",
-    "frame": { "x": 144, "y": 192, "w": 48, "h": 64 },
+    "frame": { "x": 72, "y": 84, "w": 24, "h": 28 },
     "rotated": false,
     "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 64 },
-    "sourceSize": { "w": 48, "h": 64 },
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 28 },
+    "sourceSize": { "w": 24, "h": 28 },
     "duration": 150
    },
    {
     "filename": "bard_animations 16.aseprite",
-    "frame": { "x": 0, "y": 256, "w": 48, "h": 64 },
+    "frame": { "x": 0, "y": 112, "w": 24, "h": 28 },
     "rotated": false,
     "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 64 },
-    "sourceSize": { "w": 48, "h": 64 },
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 28 },
+    "sourceSize": { "w": 24, "h": 28 },
     "duration": 150
    },
    {
     "filename": "bard_animations 17.aseprite",
-    "frame": { "x": 48, "y": 256, "w": 48, "h": 64 },
+    "frame": { "x": 24, "y": 112, "w": 24, "h": 28 },
     "rotated": false,
     "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 64 },
-    "sourceSize": { "w": 48, "h": 64 },
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 28 },
+    "sourceSize": { "w": 24, "h": 28 },
     "duration": 150
    },
    {
     "filename": "bard_animations 18.aseprite",
-    "frame": { "x": 96, "y": 256, "w": 48, "h": 64 },
+    "frame": { "x": 48, "y": 112, "w": 24, "h": 28 },
     "rotated": false,
     "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 64 },
-    "sourceSize": { "w": 48, "h": 64 },
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 28 },
+    "sourceSize": { "w": 24, "h": 28 },
     "duration": 150
    },
    {
     "filename": "bard_animations 19.aseprite",
-    "frame": { "x": 144, "y": 256, "w": 48, "h": 64 },
+    "frame": { "x": 72, "y": 112, "w": 24, "h": 28 },
     "rotated": false,
     "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 64 },
-    "sourceSize": { "w": 48, "h": 64 },
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 28 },
+    "sourceSize": { "w": 24, "h": 28 },
+    "duration": 150
+   },
+   {
+    "filename": "bard_animations 20.aseprite",
+    "frame": { "x": 0, "y": 140, "w": 24, "h": 28 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 28 },
+    "sourceSize": { "w": 24, "h": 28 },
+    "duration": 60
+   },
+   {
+    "filename": "bard_animations 21.aseprite",
+    "frame": { "x": 24, "y": 140, "w": 24, "h": 28 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 28 },
+    "sourceSize": { "w": 24, "h": 28 },
+    "duration": 150
+   },
+   {
+    "filename": "bard_animations 22.aseprite",
+    "frame": { "x": 48, "y": 140, "w": 24, "h": 28 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 28 },
+    "sourceSize": { "w": 24, "h": 28 },
+    "duration": 150
+   },
+   {
+    "filename": "bard_animations 23.aseprite",
+    "frame": { "x": 72, "y": 140, "w": 24, "h": 28 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 28 },
+    "sourceSize": { "w": 24, "h": 28 },
+    "duration": 60
+   },
+   {
+    "filename": "bard_animations 24.aseprite",
+    "frame": { "x": 0, "y": 168, "w": 24, "h": 28 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 28 },
+    "sourceSize": { "w": 24, "h": 28 },
+    "duration": 150
+   },
+   {
+    "filename": "bard_animations 25.aseprite",
+    "frame": { "x": 24, "y": 168, "w": 24, "h": 28 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 28 },
+    "sourceSize": { "w": 24, "h": 28 },
+    "duration": 150
+   },
+   {
+    "filename": "bard_animations 26.aseprite",
+    "frame": { "x": 48, "y": 168, "w": 24, "h": 28 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 28 },
+    "sourceSize": { "w": 24, "h": 28 },
+    "duration": 60
+   },
+   {
+    "filename": "bard_animations 27.aseprite",
+    "frame": { "x": 72, "y": 168, "w": 24, "h": 28 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 28 },
+    "sourceSize": { "w": 24, "h": 28 },
+    "duration": 150
+   },
+   {
+    "filename": "bard_animations 28.aseprite",
+    "frame": { "x": 0, "y": 196, "w": 24, "h": 28 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 28 },
+    "sourceSize": { "w": 24, "h": 28 },
+    "duration": 150
+   },
+   {
+    "filename": "bard_animations 29.aseprite",
+    "frame": { "x": 24, "y": 196, "w": 24, "h": 28 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 28 },
+    "sourceSize": { "w": 24, "h": 28 },
+    "duration": 60
+   },
+   {
+    "filename": "bard_animations 30.aseprite",
+    "frame": { "x": 48, "y": 196, "w": 24, "h": 28 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 28 },
+    "sourceSize": { "w": 24, "h": 28 },
+    "duration": 150
+   },
+   {
+    "filename": "bard_animations 31.aseprite",
+    "frame": { "x": 72, "y": 196, "w": 24, "h": 28 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 28 },
+    "sourceSize": { "w": 24, "h": 28 },
     "duration": 150
    }
  ],
@@ -185,14 +293,18 @@
   "version": "1.3.18.6-x64",
   "image": "bard_sheet.png",
   "format": "RGBA8888",
-  "size": { "w": 192, "h": 320 },
+  "size": { "w": 96, "h": 224 },
   "scale": "1",
   "frameTags": [
    { "name": "idle_down", "from": 0, "to": 3, "direction": "forward", "color": "#000000ff" },
    { "name": "walk_down", "from": 4, "to": 7, "direction": "forward", "color": "#000000ff" },
    { "name": "walk_up", "from": 8, "to": 11, "direction": "forward", "color": "#000000ff" },
    { "name": "walk_left", "from": 12, "to": 15, "direction": "forward", "color": "#000000ff" },
-   { "name": "walk_right", "from": 16, "to": 19, "direction": "forward", "color": "#000000ff" }
+   { "name": "walk_right", "from": 16, "to": 19, "direction": "forward", "color": "#000000ff" },
+   { "name": "play_down", "from": 20, "to": 22, "direction": "forward", "color": "#000000ff" },
+   { "name": "play_up", "from": 23, "to": 25, "direction": "forward", "color": "#000000ff" },
+   { "name": "play_left", "from": 26, "to": 28, "direction": "forward", "color": "#000000ff" },
+   { "name": "play_right", "from": 29, "to": 31, "direction": "forward", "color": "#000000ff" }
   ]
  }
 }
