@@ -5,3 +5,8 @@
 
 # exports
 /build/
+*.zip
+
+# Python bytecode from the art generators
+__pycache__/
+*.pyc

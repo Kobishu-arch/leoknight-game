@@ -1,0 +1,112 @@
+name: Publish to Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deploy at a time; a newer push supersedes an in-flight one.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+env:
+  GODOT_VERSION: 4.7.2
+  TEMPLATE_DIR: /home/runner/.local/share/godot/export_templates/4.7.2.stable
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # The template pack is version-pinned, so it caches cleanly between runs.
+      - name: Cache export templates
+        id: templates
+        uses: actions/cache@v4
+        with:
+          path: ~/.local/share/godot/export_templates
+          key: godot-web-templates-${{ env.GODOT_VERSION }}
+
+      - name: Install Godot
+        run: |
+          set -euo pipefail
+          curl -sSLo godot.zip \
+            "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_linux.x86_64.zip"
+          unzip -q godot.zip
+          sudo mv "Godot_v${GODOT_VERSION}-stable_linux.x86_64" /usr/local/bin/godot
+          sudo chmod +x /usr/local/bin/godot
+          godot --version
+
+      # Two attempts, as separate steps on purpose: run logs need admin rights,
+      # so step names are the only diagnosis available from the public API.
+      - name: Fetch web templates (range requests)
+        id: tpl_range
+        if: steps.templates.outputs.cache-hit != 'true'
+        continue-on-error: true
+        run: |
+          python3 tools/fetch_web_templates.py "${GODOT_VERSION}" "${TEMPLATE_DIR}"
+
+      - name: Fetch web templates (full pack via curl)
+        if: steps.templates.outputs.cache-hit != 'true' && steps.tpl_range.outcome == 'failure'
+        run: |
+          set -euo pipefail
+          curl -sSLo pack.tpz \
+            "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_export_templates.tpz"
+          python3 tools/fetch_web_templates.py "${GODOT_VERSION}" "${TEMPLATE_DIR}" --pack pack.tpz
+          rm -f pack.tpz
+
+      - name: Verify templates present
+        run: |
+          ls -la "${TEMPLATE_DIR}"
+          test -s "${TEMPLATE_DIR}/web_nothreads_release.zip"
+
+      # A fresh checkout has no .godot/, so resources must be imported first.
+      - name: Import resources
+        run: godot --headless --path . --import
+
+      # Gates the deploy: the movement, cliff, flute and warrior checks exit non-zero
+      # when one of them fails.
+      - name: Self-test
+        run: godot --headless --path . -s tests/test_movement.gd
+
+      - name: Export web build
+        run: |
+          mkdir -p build
+          godot --headless --path . --export-release "Web" build/index.html
+          test -s build/index.wasm
+          test -s build/index.pck
+
+      # Pages serves everything with max-age=600 and we cannot change that, so
+      # returning visitors would sit on a stale build for up to ten minutes.
+      - name: Add cache busting
+        run: |
+          python3 tools/cachebust.py build "${GITHUB_SHA}"
+          test -s build/version.txt
+          grep -q "cachebust" build/index.html
+          ls -la build
+
+      # enablement lets the action configure Pages itself (build_type: workflow)
+      # rather than requiring Settings -> Pages to already say "GitHub Actions".
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: build
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

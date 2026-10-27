@@ -7,6 +7,11 @@ fights with her transverse flute. Made with Godot 4.7, in the style of *A Link t
 This is an early prototype: a small test map, the bard walking around in it and playing her flute,
 and warriors who guard their spots, charge when she comes close and poke her with spears.
 
+## Play it
+
+In the browser: **https://kobishu-arch.github.io/leoknight-game/** (rebuilt and published by
+`.github/workflows/pages.yml` on every push to `main`, after the tests pass).
+
 ## Run it
 
 Open the folder in Godot 4.7 and press **F5**, or from the terminal:
@@ -77,6 +82,18 @@ Gravel, path, water and cliffs are drawn on half-tile-shifted layers, so their b
 - **Look at a spot of the map:** `godot4 --path . -s tests/shot.gd --write-movie /tmp/shot.png --fixed-fps 60 -- 57 20`
   writes frames of the view around map cell (57, 20); the last one shows it. Add `down`, `up`,
   `left` or `right` after the numbers to see her play the flute that way.
+
+## Web build
+
+`export_presets.cfg` has a single-threaded **Web** preset (runs on GitHub Pages without special
+headers). To build it yourself (needs Godot's 4.7.2 export templates):
+
+```bash
+godot4 --headless --path . --export-release "Web" build/index.html
+```
+
+`tools/fetch_web_templates.py` fetches just the web templates; `tools/cachebust.py` makes sure
+returning visitors get the newest build instead of Pages' ten-minute cache.
 
 ## Test
 
