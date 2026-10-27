@@ -20,10 +20,11 @@ const PROPS := {
 	"r": preload("res://scenes/rock.tscn"),
 	"u": preload("res://scenes/stump.tscn"),
 	"f": preload("res://scenes/fence.tscn"),
+	"w": preload("res://scenes/warrior.tscn"),
 }
 const RAISED := "^S"
 ## collision layers (bits): 1 trees, rocks and the map edge, 2 cliff walls seen from below,
-## 3 cliff edges seen from above, 4 water (the flute's notes fly over it)
+## 3 cliff edges seen from above, 4 water (the flute's notes fly over it), 5 the bard, 6 enemies
 const LAYER_LOW := 2
 const LAYER_HIGH := 4
 const LAYER_WATER := 8
@@ -131,9 +132,12 @@ func _place_object(x: int, y: int, c: String) -> void:
 	var foot := Vector2(x * TILE + TILE / 2.0, y * TILE + TILE - 2)
 	if c == "@":
 		player.position = foot
+		player.spawn = foot
 	elif PROPS.has(c):
 		var node: Node2D = PROPS[c].instantiate()
 		node.position = foot + (Vector2(_hash(x, y) % 5 - 2, 0) if c in "To" else Vector2.ZERO)
+		if c == "w":
+			node.target = player
 		if c == "f":  # rails towards neighbouring fence posts
 			var left := 1 if x > 0 and objects_map[y][x - 1] == "f" else 0
 			var right := 2 if x + 1 < objects_map[y].length() and objects_map[y][x + 1] == "f" else 0

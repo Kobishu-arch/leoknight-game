@@ -9,101 +9,21 @@ Writes <out>/anim.json (frames for the Aseprite bridge's aseprite_animation tool
 Run:  python3 tools/bard_frames.py <out-dir>
 The finished frames live in art/bard/bard_animations.aseprite; small fixes go there directly.
 """
-import json
 import sys
-from PIL import Image, ImageDraw
+from sprite_kit import Kit, animations
 
-W, H = 24, 28
-# Drawing coordinates are for a 20x26 figure; it lands DX/DY px further right/down in the frame,
-# which leaves room above the head for the walk bob and to the left for the flute in profile.
-DX, DY = 2, 2
-PAL = {'-': '#00000000'}
-OUTLINE_OF = {}
-
-
-def ramp(keys, cols, outline):
-    for k, c in zip(keys, cols):
-        PAL[k] = c
-        OUTLINE_OF[k] = outline[0]
-    PAL[outline[0]] = outline[1]
-    return list(keys)
-
-
-HAIR = ramp('123', ['#2a1612', '#462418', '#6a3a26'], ('!', '#140a0a'))
-SKIN = ramp('abc', ['#c07a5c', '#f0b088', '#ffd8b4'], ('"', '#5a2e24'))
-TUNIC = ramp('efg', ['#1e4e5c', '#2e7484', '#4ea0a8'], ('#', '#0e2830'))
-SCARF = ramp('nop', ['#8a1c2c', '#c43240', '#e8606a'], ('%', '#3a0a14'))
-BOOT = ramp('ABC', ['#3a2214', '#5e3a22', '#86562e'], ("'", '#1e100a'))
-FLUTE = ramp('EFG', ['#6a7494', '#b4bcd8', '#ffffff'], (')', '#262a44'))
-GOLD = ramp('ij', ['#c8902c', '#f8d860'], ('$', '#4a2c10'))
-PAL['K'] = '#1a0e14'; OUTLINE_OF['K'] = '"'
-
-
-class _Shifted:
-    def __init__(self, d): self.d = d
-    def ellipse(self, b, **kw): self.d.ellipse((b[0] + DX, b[1] + DY, b[2] + DX, b[3] + DY), **kw)
-    def line(self, p, **kw): self.d.line([(x + DX, y + DY) for x, y in p], **kw)
-
-
-class Frame:
-    def __init__(f):
-        f.c = [[None] * W for _ in range(H)]
-        f.o = [[None] * W for _ in range(H)]
-
-    def mask(f, fn):
-        m = Image.new('1', (W, H), 0); fn(_Shifted(ImageDraw.Draw(m)))
-        return {(x, y) for y in range(H) for x in range(W) if m.getpixel((x, y))}
-
-    def ell(f, *boxes, mirror=False):
-        s = f.mask(lambda d: [d.ellipse(b, fill=1) for b in boxes])
-        return s | {(2 * (DX + 9) + 1 - x, y) for (x, y) in s} if mirror else s   # mirror about the figure's centre
-
-    def thick(f, pts, w=1): return f.mask(lambda d: d.line(pts, fill=1, width=w))
-
-    def paint(f, name, pts, r, inner=True):
-        """Three tones: light on the top-left edge, dark on the bottom-right edge."""
-        for (x, y) in pts:
-            out = lambda dx, dy: (x + dx, y + dy) not in pts
-            c = r[1]
-            if out(1, 0) or out(0, 1): c = r[0]
-            elif out(-1, 0) or out(0, -1): c = r[2]
-            f.c[y][x] = c; f.o[y][x] = name
-        if inner:  # dark line where this part overlaps another one
-            for (x, y) in pts:
-                for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
-                    nx, ny = x + dx, y + dy
-                    if 0 <= nx < W and 0 <= ny < H and (nx, ny) not in pts and f.o[ny][nx] not in (None, name):
-                        f.c[y][x] = r[0]; break
-        return pts
-
-    def flat(f, name, pts, color):
-        for (x, y) in pts: f.c[y][x] = color; f.o[y][x] = name
-
-    def px(f, x, y, c):
-        x += DX; y += DY
-        if 0 <= x < W and 0 <= y < H: f.c[y][x] = c
-
-    def flute(f, a, b):
-        """Silver flute from a to b: light top, dark bottom, a dark joint in the middle."""
-        f.flat('flute', f.thick([a, b], 1), FLUTE[1])
-        (x0, y0), (x1, y1) = a, b
-        if abs(x1 - x0) >= abs(y1 - y0):   # horizontal-ish: second row underneath
-            f.flat('flute2', f.thick([(x0, y0 + 1), (x1, y1 + 1)], 1), FLUTE[0])
-            f.px(min(x0, x1) + abs(x1 - x0) // 2, y0, FLUTE[0])
-            f.px(min(x0, x1) + 1, y0, FLUTE[2])
-        else:
-            f.px(x0, y0, FLUTE[2])
-
-    def rows(f):
-        out = [r[:] for r in f.c]
-        for y in range(H):
-            for x in range(W):
-                if f.c[y][x] is not None: continue
-                for dx, dy in ((0, 1), (1, 0), (-1, 0), (0, -1)):
-                    nx, ny = x + dx, y + dy
-                    if 0 <= nx < W and 0 <= ny < H and f.c[ny][nx] is not None:
-                        out[y][x] = OUTLINE_OF.get(f.c[ny][nx], '!'); break
-        return [''.join(c or '-' for c in r) for r in out]
+# Drawing coordinates are for a 20x26 figure; it lands 2 px further right/down in the 24x28
+# frame, which leaves room above the head for the walk bob and to the left for the flute.
+kit = Kit(24, 28, 2, 2)
+HAIR = kit.ramp('123', ['#2a1612', '#462418', '#6a3a26'], ('!', '#140a0a'))
+SKIN = kit.ramp('abc', ['#c07a5c', '#f0b088', '#ffd8b4'], ('"', '#5a2e24'))
+TUNIC = kit.ramp('efg', ['#1e4e5c', '#2e7484', '#4ea0a8'], ('#', '#0e2830'))
+SCARF = kit.ramp('nop', ['#8a1c2c', '#c43240', '#e8606a'], ('%', '#3a0a14'))
+BOOT = kit.ramp('ABC', ['#3a2214', '#5e3a22', '#86562e'], ("'", '#1e100a'))
+FLUTE = kit.ramp('EFG', ['#6a7494', '#b4bcd8', '#ffffff'], (')', '#262a44'))
+GOLD = kit.ramp('ij', ['#c8902c', '#f8d860'], ('$', '#4a2c10'))
+kit.color('K', '#1a0e14', '"')
+Frame = kit.frame
 
 
 def head_front(f, b, eyes='open', back=False):
@@ -147,7 +67,7 @@ def front(b=0, lift=(0, 0), swing=(0, 0), blink=False, back=False):
         f.paint('arm%d' % side, f.ell((xs[0], 12 + b, xs[1], 17 + b + sw)), TUNIC)
         f.paint('hand%d' % side, f.ell((xs[0], 16 + b + sw, xs[1], 18 + b + sw)), SKIN)
     fx, fy = (14, 17 + b + swing[1]) if not back else (5, 17 + b + swing[0])
-    f.flute((fx, fy), (fx + (1 if not back else -1), fy + 6))
+    f.rod((fx, fy), (fx + (1 if not back else -1), fy + 6), FLUTE)
     head_front(f, b, 'closed' if blink else 'open', back)
     return f
 
@@ -160,14 +80,14 @@ def play_front(stage, b=0):
     if stage == 0:   # raising it
         f.paint('arm-1', f.ell((3, 12 + b, 6, 16 + b)), TUNIC)
         f.paint('arm1', f.ell((12, 12 + b, 15, 16 + b)), TUNIC)
-        f.flute((2, 15 + b), (9, 13 + b))
+        f.rod((2, 15 + b), (9, 13 + b), FLUTE)
         f.paint('hand-1', f.ell((3, 14 + b, 5, 16 + b)), SKIN); f.paint('hand1', f.ell((8, 12 + b, 10, 14 + b)), SKIN)
         head_front(f, b)
         return f
     f.paint('arm-1', f.ell((2, 11 + b, 6, 14 + b)), TUNIC)
     f.paint('arm1', f.thick([(13, 13 + b), (10, 11 + b)], 3), TUNIC)
     head_front(f, b, 'closed')
-    f.flute((-1, 10 + b), (11, 10 + b))
+    f.rod((-1, 10 + b), (11, 10 + b), FLUTE)
     f.paint('hand-1', f.ell((2, 10 + b, 4, 12 + b)), SKIN); f.paint('hand1', f.ell((7, 10 + b, 9, 12 + b)), SKIN)
     return f
 
@@ -180,9 +100,9 @@ def play_back(stage, b=0):
     f.paint('arm1', f.ell((13, 11 + b, 16, 14 + b)), TUNIC)
     head_front(f, b, back=True)
     if stage == 0:
-        f.flute((12, 14 + b), (19, 12 + b))
+        f.rod((12, 14 + b), (19, 12 + b), FLUTE)
     else:
-        f.flute((11, 10 + b), (21, 10 + b))
+        f.rod((11, 10 + b), (21, 10 + b), FLUTE)
     f.paint('hand1', f.ell((15, 10 + b, 17, 12 + b) if stage else (15, 12 + b, 17, 14 + b)), SKIN)
     return f
 
@@ -220,7 +140,7 @@ def side(b, na, fa, nh, fh, hand):
     body_side(f, b, na, fa, nh, fh)
     hx, hy = hand
     f.paint('narm', f.thick([(9, 13 + b), (hx, hy + b)], 2), TUNIC)
-    f.flute((hx + 1, hy + b + 1), (hx + 3, hy + b + 6))
+    f.rod((hx + 1, hy + b + 1), (hx + 3, hy + b + 6), FLUTE)
     f.paint('nhand', f.ell((hx - 1, hy + b - 1, hx + 1, hy + b + 1)), SKIN)
     head_side(f, b)
     return f
@@ -233,27 +153,17 @@ def play_side(stage, b=0):
     if stage == 0:
         f.paint('narm', f.thick([(9, 13 + b), (5, 15 + b)], 2), TUNIC)
         head_side(f, b)
-        f.flute((-2, 14 + b), (6, 12 + b))
+        f.rod((-2, 14 + b), (6, 12 + b), FLUTE)
         f.paint('nhand', f.ell((4, 13 + b, 6, 15 + b)), SKIN)
         return f
     f.paint('narm', f.thick([(9, 13 + b), (4, 11 + b)], 2), TUNIC)
     head_side(f, b, 'closed')
-    f.flute((-2, 10 + b), (5, 10 + b))
+    f.rod((-2, 10 + b), (5, 10 + b), FLUTE)
     f.paint('nhand', f.ell((-1, 10 + b, 1, 12 + b)), SKIN); f.paint('nhand2', f.ell((3, 10 + b, 5, 12 + b)), SKIN)
     return f
 
 
-frames, tags = [], []
-
-
-def add(tag, fs, dur):
-    start = len(frames) + 1
-    for i, fr in enumerate(fs):
-        frames.append({'rows': fr.rows() if isinstance(fr, Frame) else fr, 'duration': dur[i] if isinstance(dur, list) else dur})
-    tags.append((tag, start, len(frames)))
-
-
-mirror = lambda fs: [[r[::-1] for r in fr.rows()] for fr in fs]
+frames, tags, add, mirror = animations()
 add('idle_down', [front(), front(b=1), front(), front(blink=True)], [0.6, 0.6, 0.5, 0.12])
 add('walk_down', [front(lift=(0, 1), swing=(-1, 1)), front(b=-1), front(lift=(1, 0), swing=(1, -1)), front(b=-1)], 0.15)
 add('walk_up', [front(lift=(0, 1), swing=(1, -1), back=True), front(b=-1, back=True),
@@ -270,12 +180,5 @@ add('play_left', pl, PLAY)
 add('play_right', mirror(pl), PLAY)
 
 out = sys.argv[1] if len(sys.argv) > 1 else '.'
-json.dump({'palette': PAL, 'frames': frames}, open(f'{out}/anim.json', 'w'))
-json.dump(tags, open(f'{out}/tags.json', 'w'))
-sheet = Image.new('RGBA', (W * len(frames), H), (88, 168, 72, 255))
-for i, fr in enumerate(frames):
-    for y, r in enumerate(fr['rows']):
-        for x, c in enumerate(r):
-            if c != '-': h = PAL[c]; sheet.putpixel((i * W + x, y), tuple(int(h[k:k + 2], 16) for k in (1, 3, 5)) + (255,))
-sheet.save(f'{out}/anim_sheet.png')
+kit.write(frames, tags, out)
 print(len(frames), 'frames', tags)

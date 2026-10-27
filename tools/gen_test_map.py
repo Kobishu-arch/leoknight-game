@@ -6,7 +6,8 @@ Run from the project root:  python3 tools/gen_test_map.py
 
 The file holds two grids of the same size, separated by an empty line:
   terrain:  . grass  * flowers  = path  : gravel  ~ water  H bridge  ^ raised meadow  S stairs
-  objects:  . none  T spruce  o leafy tree  b bush  r rock  u stump  f fence  @ player start
+  objects:  . none  T spruce  o leafy tree  b bush  r rock  u stump  f fence  w warrior
+            @ player start
 """
 import math
 import random
@@ -115,6 +116,14 @@ for (cx, cy) in ((24, 34), (44, 17), (62, 9)):
     for _ in range(22):
         x, y = cx + r.randrange(-4, 5), cy + r.randrange(-2, 3)
         if free(x, y, '.') : ter[y][x] = '*'
+
+# warriors: small groups in the clearing across the river, the north meadow and the south-east
+for (cx, cy, n) in ((int(river_x(BY)) - 10, BY - 2, 3), (25, 10, 3), (45, 40, 4)):
+    placed = 0
+    for (dx, dy) in ((0, 0), (2, 1), (-2, 1), (1, -2), (3, -1), (-1, 3)):
+        x, y = cx + dx, cy + dy
+        if placed < n and free(x, y, '.*'):
+            obj[y][x] = 'w'; placed += 1
 
 # player start on the main road; keep her way west to the river clear (the tests walk it)
 sy = BY + 4

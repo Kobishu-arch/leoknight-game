@@ -1,0 +1,292 @@
+{ "frames": [
+   {
+    "filename": "warrior_animations 0.aseprite",
+    "frame": { "x": 0, "y": 0, "w": 32, "h": 36 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 36 },
+    "sourceSize": { "w": 32, "h": 36 },
+    "duration": 500
+   },
+   {
+    "filename": "warrior_animations 1.aseprite",
+    "frame": { "x": 32, "y": 0, "w": 32, "h": 36 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 36 },
+    "sourceSize": { "w": 32, "h": 36 },
+    "duration": 500
+   },
+   {
+    "filename": "warrior_animations 2.aseprite",
+    "frame": { "x": 64, "y": 0, "w": 32, "h": 36 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 36 },
+    "sourceSize": { "w": 32, "h": 36 },
+    "duration": 130
+   },
+   {
+    "filename": "warrior_animations 3.aseprite",
+    "frame": { "x": 96, "y": 0, "w": 32, "h": 36 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 36 },
+    "sourceSize": { "w": 32, "h": 36 },
+    "duration": 130
+   },
+   {
+    "filename": "warrior_animations 4.aseprite",
+    "frame": { "x": 0, "y": 36, "w": 32, "h": 36 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 36 },
+    "sourceSize": { "w": 32, "h": 36 },
+    "duration": 130
+   },
+   {
+    "filename": "warrior_animations 5.aseprite",
+    "frame": { "x": 32, "y": 36, "w": 32, "h": 36 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 36 },
+    "sourceSize": { "w": 32, "h": 36 },
+    "duration": 130
+   },
+   {
+    "filename": "warrior_animations 6.aseprite",
+    "frame": { "x": 64, "y": 36, "w": 32, "h": 36 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 36 },
+    "sourceSize": { "w": 32, "h": 36 },
+    "duration": 130
+   },
+   {
+    "filename": "warrior_animations 7.aseprite",
+    "frame": { "x": 96, "y": 36, "w": 32, "h": 36 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 36 },
+    "sourceSize": { "w": 32, "h": 36 },
+    "duration": 130
+   },
+   {
+    "filename": "warrior_animations 8.aseprite",
+    "frame": { "x": 0, "y": 72, "w": 32, "h": 36 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 36 },
+    "sourceSize": { "w": 32, "h": 36 },
+    "duration": 130
+   },
+   {
+    "filename": "warrior_animations 9.aseprite",
+    "frame": { "x": 32, "y": 72, "w": 32, "h": 36 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 36 },
+    "sourceSize": { "w": 32, "h": 36 },
+    "duration": 130
+   },
+   {
+    "filename": "warrior_animations 10.aseprite",
+    "frame": { "x": 64, "y": 72, "w": 32, "h": 36 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 36 },
+    "sourceSize": { "w": 32, "h": 36 },
+    "duration": 130
+   },
+   {
+    "filename": "warrior_animations 11.aseprite",
+    "frame": { "x": 96, "y": 72, "w": 32, "h": 36 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 36 },
+    "sourceSize": { "w": 32, "h": 36 },
+    "duration": 130
+   },
+   {
+    "filename": "warrior_animations 12.aseprite",
+    "frame": { "x": 0, "y": 108, "w": 32, "h": 36 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 36 },
+    "sourceSize": { "w": 32, "h": 36 },
+    "duration": 130
+   },
+   {
+    "filename": "warrior_animations 13.aseprite",
+    "frame": { "x": 32, "y": 108, "w": 32, "h": 36 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 36 },
+    "sourceSize": { "w": 32, "h": 36 },
+    "duration": 130
+   },
+   {
+    "filename": "warrior_animations 14.aseprite",
+    "frame": { "x": 64, "y": 108, "w": 32, "h": 36 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 36 },
+    "sourceSize": { "w": 32, "h": 36 },
+    "duration": 130
+   },
+   {
+    "filename": "warrior_animations 15.aseprite",
+    "frame": { "x": 96, "y": 108, "w": 32, "h": 36 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 36 },
+    "sourceSize": { "w": 32, "h": 36 },
+    "duration": 130
+   },
+   {
+    "filename": "warrior_animations 16.aseprite",
+    "frame": { "x": 0, "y": 144, "w": 32, "h": 36 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 36 },
+    "sourceSize": { "w": 32, "h": 36 },
+    "duration": 130
+   },
+   {
+    "filename": "warrior_animations 17.aseprite",
+    "frame": { "x": 32, "y": 144, "w": 32, "h": 36 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 36 },
+    "sourceSize": { "w": 32, "h": 36 },
+    "duration": 130
+   },
+   {
+    "filename": "warrior_animations 18.aseprite",
+    "frame": { "x": 64, "y": 144, "w": 32, "h": 36 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 36 },
+    "sourceSize": { "w": 32, "h": 36 },
+    "duration": 220
+   },
+   {
+    "filename": "warrior_animations 19.aseprite",
+    "frame": { "x": 96, "y": 144, "w": 32, "h": 36 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 36 },
+    "sourceSize": { "w": 32, "h": 36 },
+    "duration": 120
+   },
+   {
+    "filename": "warrior_animations 20.aseprite",
+    "frame": { "x": 0, "y": 180, "w": 32, "h": 36 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 36 },
+    "sourceSize": { "w": 32, "h": 36 },
+    "duration": 160
+   },
+   {
+    "filename": "warrior_animations 21.aseprite",
+    "frame": { "x": 32, "y": 180, "w": 32, "h": 36 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 36 },
+    "sourceSize": { "w": 32, "h": 36 },
+    "duration": 220
+   },
+   {
+    "filename": "warrior_animations 22.aseprite",
+    "frame": { "x": 64, "y": 180, "w": 32, "h": 36 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 36 },
+    "sourceSize": { "w": 32, "h": 36 },
+    "duration": 120
+   },
+   {
+    "filename": "warrior_animations 23.aseprite",
+    "frame": { "x": 96, "y": 180, "w": 32, "h": 36 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 36 },
+    "sourceSize": { "w": 32, "h": 36 },
+    "duration": 160
+   },
+   {
+    "filename": "warrior_animations 24.aseprite",
+    "frame": { "x": 0, "y": 216, "w": 32, "h": 36 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 36 },
+    "sourceSize": { "w": 32, "h": 36 },
+    "duration": 220
+   },
+   {
+    "filename": "warrior_animations 25.aseprite",
+    "frame": { "x": 32, "y": 216, "w": 32, "h": 36 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 36 },
+    "sourceSize": { "w": 32, "h": 36 },
+    "duration": 120
+   },
+   {
+    "filename": "warrior_animations 26.aseprite",
+    "frame": { "x": 64, "y": 216, "w": 32, "h": 36 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 36 },
+    "sourceSize": { "w": 32, "h": 36 },
+    "duration": 160
+   },
+   {
+    "filename": "warrior_animations 27.aseprite",
+    "frame": { "x": 96, "y": 216, "w": 32, "h": 36 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 36 },
+    "sourceSize": { "w": 32, "h": 36 },
+    "duration": 220
+   },
+   {
+    "filename": "warrior_animations 28.aseprite",
+    "frame": { "x": 0, "y": 252, "w": 32, "h": 36 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 36 },
+    "sourceSize": { "w": 32, "h": 36 },
+    "duration": 120
+   },
+   {
+    "filename": "warrior_animations 29.aseprite",
+    "frame": { "x": 32, "y": 252, "w": 32, "h": 36 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 36 },
+    "sourceSize": { "w": 32, "h": 36 },
+    "duration": 160
+   }
+ ],
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.3.18.6-x64",
+  "image": "warrior_sheet.png",
+  "format": "RGBA8888",
+  "size": { "w": 128, "h": 288 },
+  "scale": "1",
+  "frameTags": [
+   { "name": "idle_down", "from": 0, "to": 1, "direction": "forward", "color": "#000000ff" },
+   { "name": "walk_down", "from": 2, "to": 5, "direction": "forward", "color": "#000000ff" },
+   { "name": "walk_up", "from": 6, "to": 9, "direction": "forward", "color": "#000000ff" },
+   { "name": "walk_left", "from": 10, "to": 13, "direction": "forward", "color": "#000000ff" },
+   { "name": "walk_right", "from": 14, "to": 17, "direction": "forward", "color": "#000000ff" },
+   { "name": "attack_down", "from": 18, "to": 20, "direction": "forward", "color": "#000000ff" },
+   { "name": "attack_up", "from": 21, "to": 23, "direction": "forward", "color": "#000000ff" },
+   { "name": "attack_left", "from": 24, "to": 26, "direction": "forward", "color": "#000000ff" },
+   { "name": "attack_right", "from": 27, "to": 29, "direction": "forward", "color": "#000000ff" }
+  ]
+ }
+}

@@ -1,6 +1,7 @@
 extends SceneTree
 ## Headless check of the player on the test map: WASD movement, facing and animations,
-## water, the map edge, and the cliffs (walls from below, stairs up, edges from above).
+## water, the map edge, the cliffs (walls from below, stairs up, edges from above), the flute,
+## the treetops and the warriors (idle, aggro, poke, beaten by one note, giving up).
 ## Run from the project root:  godot4 --headless --path . -s tests/test_movement.gd
 
 const TILE := 16
@@ -20,6 +21,10 @@ func _run() -> void:
 	await physics_frame
 	p = main.get_node("Objects/Player")
 	var sprite: AnimatedSprite2D = p.get_node("Sprite")
+	# the warriors wait until their own checks at the end (switched off, they are out of the physics too)
+	var warriors: Array = p.get_parent().get_children().filter(func(n: Node) -> bool: return n.has_method("hit"))
+	for w in warriors:
+		w.process_mode = Node.PROCESS_MODE_DISABLED
 	_check(sprite.animation == "idle_down", "starts in idle_down")
 
 	var start := p.position
@@ -112,6 +117,56 @@ func _run() -> void:
 	await _hold("", 30)
 	_check(crown.modulate.a > 0.95, "and comes back when she leaves (alpha %.2f)" % crown.modulate.a)
 
+	# warriors
+	_check(warriors.size() >= 8, "warriors are on the map (%d)" % warriors.size())
+	var w: CharacterBody2D = warriors[0]
+	w.process_mode = Node.PROCESS_MODE_INHERIT
+	_teleport(w.position + _free_offset(w.position, 10))
+	await _hold("", 90)
+	_check(w.state in [w.State.IDLE, w.State.WANDER] and w.position.distance_to(w.home) < 40,
+		"a warrior idles around his spot while she is far away")
+	_teleport(w.position + _free_offset(w.position, 3))
+	await _hold("", 6)
+	_check(w.state in [w.State.CHASE, w.State.ATTACK] and w.get_node("Alert").visible, "he spots her nearby and shows the \"!\"")
+	var hp0: int = p.hp
+	for i in 240:
+		await physics_frame
+		if p.hp < hp0:
+			break
+	_check(p.hp == hp0 - 1 and p.safe_left > 0.0, "he runs over and pokes her (hp %d -> %d)" % [hp0, p.hp])
+	w.process_mode = Node.PROCESS_MODE_DISABLED
+
+	var w2: CharacterBody2D = warriors[1]
+	w2.process_mode = Node.PROCESS_MODE_INHERIT
+	_teleport(w2.position + _free_offset(w2.position, 3))
+	await _hold("", 6)
+	_teleport(p.spawn)
+	await _hold("", 300)
+	_check(w2.state in [w2.State.RETURN, w2.State.IDLE, w2.State.WANDER] and w2.position.distance_to(w2.home) < 40,
+		"he gives up when she gets away and goes back home")
+	w2.process_mode = Node.PROCESS_MODE_DISABLED
+
+	# one note beats a warrior: stand level with him, face him and play
+	var w3: CharacterBody2D = warriors[2]
+	w3.process_mode = Node.PROCESS_MODE_INHERIT
+	var off := _free_offset(w3.position, 3)
+	_teleport(w3.position + Vector2(off.x, 0) if off.x != 0 else w3.position + Vector2(0, off.y))
+	p.facing = p._facing_for(w3.position - p.position)
+	Input.action_press("attack")
+	await physics_frame
+	Input.action_release("attack")
+	await _hold("", 50)
+	_check(not is_instance_valid(w3) or w3.dead, "one note from the flute beats him")
+	_check(p.get_parent().get_children().any(func(n: Node) -> bool: return n.name.begins_with("Puff")) or not is_instance_valid(w3),
+		"he vanishes in a puff of smoke")
+
+	# three pokes and she starts over at the beginning
+	p.hp = p.max_hp
+	for i in p.max_hp:
+		p.safe_left = 0.0
+		p.hurt(p.position + Vector2(10, 0))
+	_check(p.hp == p.max_hp and p.position == p.spawn, "after three pokes she starts over at the beginning")
+
 	print("FAILED: %d" % failures if failures else "ALL PASSED")
 	quit(1 if failures else 0)
 
@@ -120,6 +175,18 @@ func _teleport(pos: Vector2) -> void:
 	p.position = pos
 	p.level = main.level_at(pos) if main.level_at(pos) >= 0 else 0
 	p.collision_mask = p._walls()
+
+
+## An offset of `cells` map cells left, right, up or down from `pos` that lands on open ground.
+func _free_offset(pos: Vector2, cells: int) -> Vector2:
+	for d in [Vector2.RIGHT, Vector2.LEFT, Vector2.DOWN, Vector2.UP]:
+		var q: Vector2 = pos + d * cells * TILE
+		var cx := int(q.x) / TILE
+		var cy := int(q.y) / TILE
+		if cy >= 0 and cy < main.terrain.size() and cx >= 0 and cx < main.terrain[0].length() \
+				and main.terrain[cy][cx] in ".*=" and main.objects_map[cy][cx] in ".w":
+			return d * cells * TILE
+	return Vector2(cells * TILE, 0)
 
 
 func _find(c: String) -> Vector2i:

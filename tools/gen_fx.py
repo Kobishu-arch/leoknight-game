@@ -3,6 +3,8 @@
   glow.png     16x16 soft halo in stepped rings, drawn additively behind each note
   sparkle.png  5x5 sparkle for the notes' trail and the burst when a note hits something
   wave.png     golden sound wave sweeping out of the flute, 3 frames of 32x32, facing right
+  puff.png     10x8 little smoke cloud, for enemies vanishing
+  alert.png    6x10 exclamation mark that pops up when an enemy spots the bard
 Run from the project root:  python3 tools/gen_fx.py
 """
 import math
@@ -94,4 +96,37 @@ for f, (radius, width, alpha) in enumerate([(8, 3.0, 255), (11, 2.4, 220), (14, 
             c = MID if edge else (WHITE if abs(r - radius) < 0.6 and abs(ang) < 25 else LIGHT)
             wave.putpixel((f * 32 + x, y), c[:3] + (alpha if not edge else alpha * 2 // 3,))
 wave.save('art/fx/wave.png')
+
+# smoke puff: a little cloud of three round bumps, light on the upper left
+puff = Image.new('RGBA', (10, 8), (0, 0, 0, 0))
+bumps = [(3.0, 4.2, 2.8), (6.5, 4.4, 2.6), (4.8, 2.6, 2.4)]
+inside = lambda x, y: any(math.hypot(x - cx, y - cy) <= r for cx, cy, r in bumps)
+for y in range(8):
+    for x in range(10):
+        if not inside(x, y): continue
+        edge = not all(inside(x + dx, y + dy) for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)))
+        lit = not inside(x - 1, y - 1)
+        shade = not inside(x + 1, y + 1)
+        c = '#c8c0c4' if edge and shade else '#ffffff' if lit else '#a8a0a8' if shade else '#ece8ec'
+        puff.putpixel((x, y), hx(c, 235))
+puff.save('art/fx/puff.png')
+
+# alert mark: a bold white "!" with a dark outline, like an enemy spotting you in Zelda
+ALERT = [
+    ".kkkk.",
+    "kwwwwk",
+    "kwwwwk",
+    ".kwwk.",
+    ".kwwk.",
+    "..kk..",
+    "......",
+    "..kk..",
+    ".kwwk.",
+    "..kk..",
+]
+al = Image.new('RGBA', (6, 10), (0, 0, 0, 0))
+for y, row in enumerate(ALERT):
+    for x, c in enumerate(row):
+        if c in 'kw': al.putpixel((x, y), hx('#3a1018' if c == 'k' else '#ffffff'))
+al.save('art/fx/alert.png')
 print('fx written')

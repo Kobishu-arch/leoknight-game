@@ -2,6 +2,8 @@ extends CharacterBody2D
 ## The bard: walks in eight directions with WASD or the arrow keys and plays the
 ## walk animation of the direction she faces (four directions, like Zelda).
 ## Space plays the flute: she stands still for a moment and a glowing note flies out.
+## A spear poke knocks her back and she flickers for a moment; after three pokes she
+## starts over at the beginning of the map.
 
 const NOTE := preload("res://scenes/note.tscn")
 const WAVE := preload("res://scenes/sound_wave.tscn")
@@ -15,6 +17,7 @@ const NOTE_FROM := {
 }
 
 @export var speed := 70.0
+@export var max_hp := 3
 
 ## "down", "up", "left" or "right"
 var facing := "down"
@@ -24,6 +27,12 @@ var level := 0
 var level_at: Callable
 var attack_left := 0.0
 var note_fired := false
+var hp := 3
+## where she starts over; set by the world
+var spawn := Vector2.ZERO
+var knockback := Vector2.ZERO
+var knocked_left := 0.0
+var safe_left := 0.0  # no new hits while she flickers
 
 @onready var sprite: AnimatedSprite2D = $Sprite
 
@@ -31,6 +40,19 @@ var note_fired := false
 # Moving every rendered frame (not only on the 60 Hz physics ticks) keeps the motion
 # smooth on monitors faster than 60 Hz; the camera follows in the same step.
 func _process(delta: float) -> void:
+	if safe_left > 0.0:
+		safe_left -= delta
+		sprite.modulate.a = 0.35 if int(safe_left * 15.0) % 2 == 0 else 1.0
+		if safe_left <= 0.0:
+			sprite.modulate = Color.WHITE
+	if knocked_left > 0.0:
+		knocked_left -= delta
+		velocity = knockback
+		move_and_slide()
+		_update_level()
+		if knocked_left <= 0.0:
+			sprite.self_modulate = Color.WHITE
+		return
 	if attack_left > 0.0:
 		attack_left -= delta
 		if not note_fired and attack_left <= ATTACK_TIME - NOTE_AT:
@@ -66,11 +88,36 @@ func _update_level() -> void:
 	collision_mask = _walls()
 
 
+## Poked by a warrior standing at `from`.
+func hurt(from: Vector2) -> void:
+	if safe_left > 0.0:
+		return
+	hp -= 1
+	attack_left = 0.0
+	if hp <= 0:
+		_start_over()
+		return
+	knockback = from.direction_to(global_position) * 160.0
+	knocked_left = 0.15
+	safe_left = 1.0
+	sprite.self_modulate = Color(1.0, 0.35, 0.35)
+
+
+func _start_over() -> void:
+	hp = max_hp
+	position = spawn
+	level = 0
+	collision_mask = _walls()
+	safe_left = 1.5
+	knocked_left = 0.0
+	facing = "down"
+
+
 ## collision layers: 1 trees, rocks, map edge; 2 cliff walls seen from below;
-## 3 cliff edges seen from above; 4 water (notes fly over it, she cannot walk into it).
-## She herself is on layer 5, so her own notes fly through her.
+## 3 cliff edges seen from above; 4 water (notes fly over it, she cannot walk into it);
+## 6 enemies. She herself is on layer 5, so her own notes fly through her.
 func _walls() -> int:
-	return 1 | (4 if level == 1 else 2) | 8
+	return 1 | (4 if level == 1 else 2) | 8 | 32
 
 
 func _fire_note() -> void:

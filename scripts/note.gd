@@ -21,7 +21,10 @@ var done := false
 
 func _ready() -> void:
 	sprite.region_rect = Rect2(12 * (randi() % 2), 0, 12, 12)  # eighth note or beamed pair
-	body_entered.connect(func(_body: Node) -> void: _finish(true))
+	body_entered.connect(func(body: Node) -> void:
+		if body.has_method("hit"):
+			body.hit()
+		_finish(true))
 
 
 func _process(delta: float) -> void:

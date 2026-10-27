@@ -4,7 +4,8 @@ A Zelda-like adventure through Forchach (Lech valley, Tyrol), starring a bard wh
 fights with her transverse flute. Made with Godot 4.7, in the style of *A Link to the Past*:
 16×16 tiles, a Link-sized hero, soft round shapes.
 
-This is an early prototype: a small test map, the bard walking around in it and playing her flute.
+This is an early prototype: a small test map, the bard walking around in it and playing her flute,
+and warriors who guard their spots, charge when she comes close and poke her with spears.
 
 ## Run it
 
@@ -17,7 +18,10 @@ godot4 --path .
 | Key | Action |
 |---|---|
 | W A S D / arrow keys | walk |
-| Space | play the flute: a glowing note flies out in the direction she faces |
+| Space | play the flute: a glowing note flies out in the direction she faces; one note beats a warrior |
+
+A warrior's poke knocks her back; after three pokes she starts over at the beginning (no hearts on
+screen yet).
 
 The game renders at 320×180 and scales up 4× (1280×720 window).
 
@@ -27,25 +31,27 @@ The game renders at 320×180 and scales up 4× (1280×720 window).
 |---|---|
 | `scenes/main.tscn` | the test map; `scripts/world.gd` builds it from `maps/forchach_test.txt` |
 | `scenes/player.tscn`, `scripts/player.gd` | the bard: movement, facing, animations, flute attack, ground / raised-meadow level |
+| `scenes/warrior.tscn`, `scripts/warrior.gd` | the warrior enemy: idles, spots her ("!"), charges with his group, pokes, gives up; vanishes in a `puff.tscn` |
 | `scenes/note.tscn`, `scripts/note.gd` | the flute's glowing note: halo, sparkle trail, wobble; fades out or bursts (`note_burst.tscn`) on what it hits |
 | `scenes/sound_wave.tscn`, `scripts/sound_wave.gd` | the golden sound wave that sweeps out of the flute |
 | `scripts/canopy.gd` | makes treetops see-through while the bard is behind them |
 | `shaders/grade.gdshader` | colour grade over the whole picture: warm light, cool shadows, soft vignette |
 | `art/bard/bard_animations.aseprite` | bard sprite (24×28): `idle_down`, `walk_*` and `play_*` for down, up, left, right |
-| `art/fx/` | notes (12×12), their halo, the sparkle and the sound wave |
+| `art/warrior/warrior_animations.aseprite` | warrior sprite (32×36): `idle_down`, `walk_*` and `attack_*` for down, up, left, right |
+| `art/fx/` | notes (12×12), their halo, the sparkle, the sound wave, the smoke puff and the alert mark |
 | `art/bard/bard_sheet.png` + `.json` | sheet exported from Aseprite; `bard_frames.tres` is built from it |
 | `art/tiles/terrain.png` | 16×16 tileset: grass, flowers, gravel, path, water, cliff wall and top, bridge, stairs |
 | `art/props/` | clover bush, stone, stump, fence (4 variants), round tree, spruce |
 | `art/bard/earlier/` | earlier sprite versions (not imported by Godot) |
-| `tools/` | scripts that generate the bard frames, the tileset and props, the map and the SpriteFrames |
-| `tests/` | headless movement test, a motion check and a screenshot helper |
+| `tools/` | scripts that generate the characters (`bard_frames.py`, `warrior_frames.py`, shared `sprite_kit.py`), the tileset and props, the map and the SpriteFrames |
+| `tests/` | headless test of movement, cliffs, flute and warriors; a motion check; screenshot and fight-recording helpers |
 
 ## The map
 
 `maps/forchach_test.txt` holds two grids of the same size, separated by an empty line:
 
 - **terrain:** `.` grass, `*` flowers, `=` path, `:` gravel, `~` water, `H` bridge, `^` raised meadow, `S` stairs
-- **objects:** `.` none, `T` spruce, `o` leafy tree, `b` bush, `r` stone, `u` stump, `f` fence, `@` player start
+- **objects:** `.` none, `T` spruce, `o` leafy tree, `b` bush, `r` stone, `u` stump, `f` fence, `w` warrior, `@` player start
 
 Gravel, path, water and cliffs are drawn on half-tile-shifted layers, so their borders are round
 (see `tools/gen_map_art.py`). The last two rows of a raised meadow show as a cliff wall; stairs
@@ -53,16 +59,17 @@ Gravel, path, water and cliffs are drawn on half-tile-shifted layers, so their b
 
 ## Changing the art
 
-- **Bard sprite:** the frames come from `tools/bard_frames.py`; `python3 tools/build_bard.py` rebuilds the
-  `.aseprite` file, the sheet, Godot's SpriteFrames and the preview GIFs from it. For a hand fix,
+- **Characters:** the frames come from `tools/bard_frames.py` and `tools/warrior_frames.py`;
+  `python3 tools/build_sprite.py bard` (or `warrior`) rebuilds the `.aseprite` file, the sheet, Godot's
+  SpriteFrames and the preview GIFs from it. For a hand fix,
   edit `art/bard/bard_animations.aseprite` instead, then export the sheet and rebuild the frames:
 
   ```bash
   aseprite -b art/bard/bard_animations.aseprite --list-tags --sheet art/bard/bard_sheet.png --sheet-type rows --sheet-columns 4 --data art/bard/bard_sheet.json --format json-array
-  python3 tools/make_spriteframes.py
+  python3 tools/make_spriteframes.py bard
   ```
 
-- **Flute effects** (notes, halo, sparkle, sound wave): `python3 tools/gen_fx.py`.
+- **Effects** (notes, halo, sparkle, sound wave, smoke puff, alert mark): `python3 tools/gen_fx.py`.
 
 - **Tiles and props:** `python3 tools/gen_map_art.py` (needs Pillow), then let Godot re-import
   (`godot4 --headless --path . --import`, or just open the editor). The PNGs can also be edited in
@@ -72,6 +79,10 @@ Gravel, path, water and cliffs are drawn on half-tile-shifted layers, so their b
   `left` or `right` after the numbers to see her play the flute that way.
 
 ## Test
+
+To watch a fight with the warriors: `godot4 --path . -s tests/demo_fight.gd` (add
+`--write-movie /tmp/fight.png --fixed-fps 60` to record it).
+
 
 ```bash
 godot4 --headless --path . -s tests/test_movement.gd
