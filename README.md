@@ -48,6 +48,9 @@ The game renders at 320×180 and scales up 4× (1280×720 window).
 | `art/tiles/terrain.png` | 16×16 tileset: grass, flowers, gravel, path, water, cliff wall and top, bridge, stairs |
 | `art/props/` | clover bush, stone, stump, fence (4 variants), round tree, spruce |
 | `art/bard/earlier/` | earlier sprite versions (not imported by Godot) |
+| `art/ui/` | dialogue portraits (Leo, warrior) and 16×16 item icons (flute, lion head), from `tools/gen_ui.py` |
+| `art/reference/` | concept sprites kept as models for new poses (not imported by Godot); see its README |
+| `art/palettes/` | the concept palette for Aseprite |
 | `tools/` | scripts that generate the characters (`bard_frames.py`, `warrior_frames.py`, shared `sprite_kit.py`), the tileset and props, the map and the SpriteFrames |
 | `tests/` | headless test of movement, cliffs, flute and warriors; a motion check; screenshot and fight-recording helpers |
 
@@ -75,6 +78,7 @@ Gravel, path, water and cliffs are drawn on half-tile-shifted layers, so their b
   ```
 
 - **Effects** (notes, halo, sparkle, sound wave, smoke puff, alert mark): `python3 tools/gen_fx.py`.
+- **Portraits and item icons:** `python3 tools/gen_ui.py` (portraits are cleaned up from `art/reference/ui/`).
 
 - **Tiles and props:** `python3 tools/gen_map_art.py` (needs Pillow), then let Godot re-import
   (`godot4 --headless --path . --import`, or just open the editor). The PNGs can also be edited in
